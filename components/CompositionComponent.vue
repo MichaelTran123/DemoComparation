@@ -1,24 +1,45 @@
 <template>
   <div>
     <p>{{ message }}</p>
-    <button @click="changeMessage">Change Message</button>
-    <p>{{ abc }}</p>
+    <button @click="changeMessage('your Message is changed')">Change Message</button>
+    <!-- <p>{{ abc }}</p> -->
   </div>
 </template>
 
 <script lang="ts">
 import { useMessage } from '@/composables/useMessage';
-import { defineComponent } from 'vue';
+import { defineComponent, toRefs } from 'vue';
 
 export default defineComponent({
-  setup() {
-    const { message, changeMessage, abc } = useMessage();
+  props: {
+    propA: {
+      type: String,
+      default: "This is propA"
+    },
+    initialMessage: {
+      type: String,
+      default: 'This is default message',
+      required: false
+    }
+  },
+
+  setup(props) {
+    const { initialMessage } = toRefs(props);
+    const { message, changeMessage, mounted: mountedAPI} = useMessage(initialMessage.value);
+    
     return {
       message,
       changeMessage,
-      abc
+      mountedAPI
     };
   },
+
+  
+  mounted() {
+    this.mountedAPI
+    this.message = 'updated now'
+    // debugger
+  }
 });
 </script>
 

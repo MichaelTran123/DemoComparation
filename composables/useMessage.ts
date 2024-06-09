@@ -1,17 +1,17 @@
-import { computed, ref } from "vue";
+import { onMounted, ref } from "vue";
 
-export function useMessage() {
-  const message = ref('Hello from Composition API!');
+export function useMessage(initialMessage: string) {
+  const message = ref(initialMessage);
 
-  function changeMessage() {
-    message.value = 'Message changed by Composition API!';
+  function changeMessage(newMessage: string) {
+    message.value = newMessage;
   }
 
-  const abc = computed(() => 'hello');
+  const mounted = onMounted(() => console.log("This is mounted From Composition API"))
 
   return {
     message,
     changeMessage,
-    abc
+    mounted
   };
 }

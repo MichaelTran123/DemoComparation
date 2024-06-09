@@ -7,15 +7,14 @@
 
 <script lang="ts">
 import Vue, { defineComponent } from 'vue';
-import MessageMixin from '@/mixins/messageMixin';
+import {messageMixin} from '@/mixins/messageMixin';
 
 export default defineComponent({
-    mixins: [MessageMixin] as any,
+    mixins: [messageMixin],
     
 
     mounted() {
-      const test = this as any
-      console.log(test.message)
+      this.message = 'Updated'
     }
 });
 </script>
